@@ -1,0 +1,46 @@
+@use "tokens" as *;
+
+// Focus is never removed. :focus-visible keeps mouse users clean
+// while keyboard users always see where they are.
+:focus-visible {
+  outline: $focus-outline;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: $space-3;
+  top: -100px;
+  background: $color-primary;
+  color: #fff;
+  padding: $space-2 $space-3;
+  z-index: 100;
+  &:focus { top: $space-2; }
+}
+
+.portal-nav {
+  background: $color-primary;
+  .navbar-brand, .nav-link { color: #fff; }
+  .nav-link:focus-visible { outline-color: #fff; }
+}
+
+.portal-card {
+  border: 1px solid #cbd5db;
+  border-radius: $radius;
+  box-shadow: none; // no low-contrast shadow-only separation
+}
+
+.btn-primary {
+  background: $color-primary;
+  border-color: $color-primary;
+  &:hover, &:focus { background: $color-primary-hover; }
+}
+
+.form-control, .form-select {
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  &:focus { border-color: $color-primary; box-shadow: 0 0 0 3px rgba(11, 61, 95, 0.25); }
+}
+
+// Never use colour alone to mean something: errors have text + icon + border.
+.field-error { color: $color-danger; font-weight: 600; }

@@ -1,0 +1,43 @@
+@model AccessiblePortal.Models.ServiceRequest
+@{
+  ViewData["Title"] = "Submit a request";
+}
+<h1>Submit a service request</h1>
+<p id="form-instructions">All fields marked with an asterisk are required. Errors are listed at the top and next to each field.</p>
+
+<form method="post" asp-action="New" aria-describedby="form-instructions" novalidate>
+  @Html.AntiForgeryToken()
+  <div asp-validation-summary="All" class="alert alert-danger" role="alert" tabindex="-1"></div>
+
+  <div class="mb-3">
+    <label asp-for="ServiceName" class="form-label"></label>
+    <select asp-for="ServiceName" class="form-select" aria-required="true">
+      <option value="">Choose a service</option>
+      <option>Benefits</option><option>Licenses</option><option>Records</option><option>Payments</option>
+    </select>
+    <span asp-validation-for="ServiceName" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3">
+    <label asp-for="FullName" class="form-label"></label>
+    <input asp-for="FullName" class="form-control" autocomplete="name" aria-required="true" />
+    <span asp-validation-for="FullName" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3">
+    <label asp-for="Email" class="form-label"></label>
+    <input asp-for="Email" class="form-control" type="email" autocomplete="email" aria-required="true" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+  </div>
+
+  <div class="mb-3">
+    <label asp-for="Description" class="form-label"></label>
+    <textarea asp-for="Description" class="form-control" rows="5" aria-required="true"
+              aria-describedby="description-hint"></textarea>
+    <div id="description-hint" class="form-text">Describe what you need in 10 to 2000 characters. Do not include sensitive personal data.</div>
+    <span asp-validation-for="Description" class="text-danger"></span>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit request</button>
+  <a class="btn btn-secondary" href="/Services">Cancel</a>
+</form>

@@ -1,0 +1,60 @@
+@model List<AccessiblePortal.Models.ServiceRequest>
+@{
+  ViewData["Title"] = "Services";
+  var services = new[] { "Benefits", "Licenses", "Records", "Payments" };
+}
+<h1>Public services</h1>
+<p>Filter services, then submit a request. Every control below is keyboard operable and labelled.</p>
+
+<form method="get" asp-action="Index" role="search" aria-label="Filter services">
+  <div class="mb-3">
+    <label for="filter" class="form-label">Filter by service</label>
+    <select id="filter" name="filter" class="form-select">
+      <option value="">All services</option>
+      @foreach (var s in services)
+      {
+        <option value="@s" selected="@(ViewData["Filter"]?.ToString() == s)">@s</option>
+      }
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Apply filter</button>
+</form>
+
+<section aria-labelledby="services-heading" class="mt-4">
+  <h2 id="services-heading">Available services</h2>
+  <div class="row">
+    @foreach (var s in services)
+    {
+      <div class="col-md-6 mb-3">
+        <article class="card portal-card">
+          <div class="card-body">
+            <h3 class="card-title">@s</h3>
+            <p class="card-text">Sample @s service. Apply online, track by reference number, get status updates.</p>
+            <a class="btn btn-outline-primary" href="/Services/New">Start a @s request</a>
+          </div>
+        </article>
+      </div>
+    }
+  </div>
+</section>
+
+<section aria-labelledby="recent-heading" class="mt-4">
+  <h2 id="recent-heading">Recent requests (sample data)</h2>
+  @if (Model.Count == 0)
+  {
+    <p>No requests yet. Submit one to see it here.</p>
+  }
+  else
+  {
+    <table class="table">
+      <caption>Recent service requests and their status</caption>
+      <thead><tr><th scope="col">Reference</th><th scope="col">Service</th><th scope="col">Status</th></tr></thead>
+      <tbody>
+        @foreach (var r in Model)
+        {
+          <tr><th scope="row">@r.ReferenceNumber</th><td>@r.ServiceName</td><td>@r.Status</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

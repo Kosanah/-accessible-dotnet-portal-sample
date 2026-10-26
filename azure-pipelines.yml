@@ -1,0 +1,32 @@
+trigger:
+  - main
+
+pool:
+  vmImage: windows-latest
+
+variables:
+  buildConfiguration: Release
+
+steps:
+  - task: UseDotNet@2
+    inputs:
+      version: 8.x
+  - task: DotNetCoreCLI@2
+    displayName: Restore
+    inputs:
+      command: restore
+  - task: DotNetCoreCLI@2
+    displayName: Build
+    inputs:
+      command: build
+      arguments: --configuration $(buildConfiguration) --no-restore
+  - task: DotNetCoreCLI@2
+    displayName: Test
+    inputs:
+      command: test
+      arguments: --configuration $(buildConfiguration) --no-build
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: publish
+      arguments: --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)

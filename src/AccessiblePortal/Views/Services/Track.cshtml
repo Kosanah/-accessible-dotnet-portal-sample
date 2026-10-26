@@ -1,0 +1,30 @@
+@model AccessiblePortal.Models.ServiceRequest?
+@{
+  ViewData["Title"] = "Track a request";
+}
+<h1>Track a request</h1>
+<form method="get" asp-action="Track">
+  <div class="mb-3">
+    <label for="reference" class="form-label">Reference number</label>
+    <input id="reference" name="reference" class="form-control" autocomplete="off"
+           aria-describedby="reference-hint" value="@Context.Request.Query["reference"]" />
+    <div id="reference-hint" class="form-text">Format: SR-YYYYMMDD-XXXX, shown after you submit.</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Track request</button>
+</form>
+
+@if (Model is not null)
+{
+  <section aria-labelledby="result-heading" class="mt-4" aria-live="polite">
+    <h2 id="result-heading">Request @Model.ReferenceNumber</h2>
+    <dl>
+      <dt>Service</dt><dd>@Model.ServiceName</dd>
+      <dt>Status</dt><dd>@Model.Status</dd>
+      <dt>Submitted</dt><dd>@Model.CreatedAtUtc.ToString("yyyy-MM-dd")</dd>
+    </dl>
+  </section>
+}
+else if (Context.Request.Query.ContainsKey("reference"))
+{
+  <p class="alert alert-warning mt-4" role="alert">No request found for that reference. Check the number and try again.</p>
+}
