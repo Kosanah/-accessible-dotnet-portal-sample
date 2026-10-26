@@ -5,9 +5,7 @@ GitHub: https://github.com/Kosanah · LinkedIn: https://www.linkedin.com/in/hari
 
 A full-stack sample that shows the exact mix this kind of enterprise role asks for:
 .NET + C# on the back end, and a front end you can actually use with a keyboard
-and a screen reader. It is a **demonstration project with fictional public-service
-data — not client work, not a State of Iowa system, and it contains no real
-citizen or client data.**
+and a screen reader.
 
 ## What it demonstrates, mapped to the role
 
